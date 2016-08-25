@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css">
+    <style>
+    .error{color:#a10;}
+    </style>
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>	
+	<script src="lib/angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="signUpController">
+	<div data-role="page" id="page1">
+		<div data-role="header" data-position="fixed">
+			<a href="#page1" data-role="button" data-icon="home" data-transition="flip" class="ui-btn-active" data-iconpos="notext" data-shadow="false">首页</a>
+			<h1>dbw主页</h1>
+			 <a href="#" data-role="button" data-icon="grid" data-transition="flip" data-iconpos="notext" data-shadow="false" ></a>
+		</div>
+		<div data-role="content">
+			<form name="signUpForm">
+				<label for="username" class="ui-hidden-accessible">账号</label>
+				<input type="text" name="username" class="form-control" placeholder="账号" ng-model="userdata.userName" ng-maxlength="10" ng-minlength="3" required> 
+				<p class="error" ng-show="signUpForm.username.$invalid && signUpForm.username.$dirty">账号长度应在3-10位之间，请重新输入</p>
+				<label for="psw" class="ui-hidden-accessible">密码</label>
+				<input type="password" name="psw" class="form-control" placeholder="密码" ng-model="userdata.psw" ng-minlength="6" maxlength="32" ng-pattern="/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,32}$/" required>
+			 	<p class="error" ng-show="signUpForm.psw.$invalid && signUpForm.psw.$dirty">密码长度应在6-32位之间，且只能为数字与字母</p>
+
+			 	<input type="password" name="pswCen" class="form-control" placeholder="确认密码" ng-model="userdata.pswCen" required>
+
+			 	<p class="error" ng-show="userdata.pswCen != userdata.psw && signUpForm.pswCen.$dirty ">两次输入的密码不一致</p>
+
+			  <!-- <fieldset data-role="controlgroup">
+			    <legend>请选择您的性别：</legend>
+			      <label for="male">男</label>
+			      <input type="radio" name="gender" id="male" value="male">
+			      <label for="female">女</label>
+			      <input type="radio" name="gender" id="female" value="female"> 
+			  </fieldset>
+			  <fieldset data-role="fieldcontain">
+		        <label for="career">选择职位：</label>
+		        <select name="career" id="career" data-native-menu="false">
+		         <option value="web">web前端</option>
+		         <option value="java">java</option>
+		         <option value="ios">IOS</option>
+		         <option value="andriod">安卓</option>
+		         <option value="test">测试</option>
+		         <option value="ui">UI</option>
+		         <option value="php">php</option>
+		        </select>
+		      </fieldset>-->
+			  <input type="submit" data-inline="true" value="提交" data-theme="b" class="btn btn-primary" ng-click="submitForm()" ng-disabled="signUpForm.$invalid">
+			</form>
+		</div>
+		
+	</div>
+	<script>
+
+	angular.module('myApp', [])
+		.controller('signUpController',function($scope){
+			$scope.submitForm=function(){
+				console.log($scope.userdata)
+			};
+		})
+	</script>
+</body>
+</html>
